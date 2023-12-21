@@ -62,14 +62,14 @@ or[8:0] -> texto[8:0]
 ### Comments
 Comments use hashtags '#'. Comments must be in their own lines, and must not share a line with other code.
 
-# TLDR;
+# TLDR;/CHEATSHEET
+```
 var_name = block_type
 var_name = block_type = block_properties
 variable_or_building:clone()
 variable_or_building:clone(number_of_clones)
 var_name -> var_name_2
-var_name[number_of_vars:start_offset] -> var_name_2[same_number_of_vars:start_offset]  
-```
+var_name[number_of_vars:start_offset] -> var_name_2[same_number_of_vars:start_offset]
 building_name:
   indented_building_code
 ```
