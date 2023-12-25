@@ -2,7 +2,7 @@ import cm2py
 import pyperclip
 import json
 
-f = input("Enter path of file containing code: ")
+f = input("Enter path of file to compile (output copies to clipboard): ")
 
 sv = cm2py.Save()
 
@@ -82,7 +82,7 @@ def dupe(src, t_of=0):
 
 def fetchct(txt):
     txt = txt.strip()
-    if '[' in txt and txt[-1] == ']':
+    if '[' in txt and ']' in txt:
         otp = ''
         targ = ''
         br = False
@@ -100,6 +100,19 @@ def fetchct(txt):
     else:
         return -999, -999, False, txt
 
+def cleandex(txt):
+        txt = txt.strip()
+        otp = ''
+        targ = ''
+        br = False
+        for v in txt:
+            if v in '[]':
+                br = not br
+            elif br:
+                otp += v
+            else:
+                targ += v
+        return targ
 def handle_r(l):
     #linking
     global blocks
@@ -118,6 +131,8 @@ def handle_r(l):
             buildings[b1]["connections"].append('>'.join([ spl[0].split('.')[0].strip(), spl[1].split('.')[0].strip() ]))
         sv.addConnection(src,dest)
     else:
+        sp1 = cleandex(sp1)
+        sp2 = cleandex(sp2)
         for i in range(ct1):
             src = ""
             dest = ""
@@ -129,6 +144,7 @@ def handle_r(l):
                 dest = f"{sp2.split('.')[0]}{i+off2}.{sp2.split('.')[1]}"
             else:
                 dest = sp2+f"{i+off2}"
+            print(src,dest)
             handle_r(f'{src}->{dest}')
 def handle_funcs(l):
     #run funcs, like :clone
